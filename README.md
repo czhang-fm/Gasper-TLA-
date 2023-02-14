@@ -1,7 +1,8 @@
 # Gasper-TLA-
 TLA+ models for the Gasper consensus protocol
 
-### The first model in "Gasper_all_msg_000.tla" produces too many states and causes out-of-memory (4G JVM maximal)
+### The first model in "Gasper_all_msg_000.tla" produces too many states and causes out-of-memory 
+(max JVM memory: 4294967296 ~ 4G)
 
 ### The second model, in "Gasper_all_msg_000_simplified.tla", performs the following simplifications.
 
