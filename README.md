@@ -14,8 +14,9 @@ TLA+ models for the Gasper consensus protocol
 
 - Install the most recent versioned apalache (currently v0.30.1) from https://github.com/informalsystems/apalache/releases
 
-- Install Java 11
+- Install Java 11 jdk (I used https://www.oracle.com/au/java/technologies/javase/jdk11-archive-downloads.html)
 
 - Under the folder "protocol", type:
+
   apalache-mc check --inv=FinalitySafety Test_Gasper_simplified_4_1.tla
   
