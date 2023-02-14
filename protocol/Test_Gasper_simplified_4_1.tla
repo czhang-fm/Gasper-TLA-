@@ -2,10 +2,6 @@
 
 \* the variables declared in the Gasper protocol
 VARIABLES
-    \* @type: Int -> Int;
-    proposer,      \* the proposr function from Slots to 1..NumValidators 
-    \* @type: Int -> Int;
-    blockTree,     \* a function mapping a block to its parent or NilBlock
     \* @type: Set({id: Int, slot: Int, src: Int, dst: Int});
     honestVotes,
     \* @type: Set({id: Int, slot: Int, src: Int, dst: Int});
@@ -24,8 +20,8 @@ VARIABLES
 INSTANCE Gasper_all_msg_000_simplified WITH 
     Honest <- 3,
     Byzantine <- 1,
-    NumEpoch <- 4,
-    SlotPerEpoch <- 2
+    NumEpoch <- 3,
+    SlotPerEpoch <- 1
 
 
 =============================================================================  
