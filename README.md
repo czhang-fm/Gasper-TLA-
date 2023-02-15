@@ -10,7 +10,7 @@ TLA+ models for the Gasper consensus protocol
 
 - Enforcing a limit on the number of byzantine Attestations as 2 votes per epoch
 
-- I have aborted the checking for the second model after 1 day 2 hours 49 minutes in a MacBookPro M1 Pro (MacOS 13.01, Memory 16GB).
+- I have terminated the verification procedure for the second model after 1 day 2 hours 49 minutes on a MacBookPro M1 Pro (MacOS 13.01, Memory 16GB).
 
 ### The third model in "Gasper_all_msg_000_string.tla"
 
@@ -18,7 +18,10 @@ TLA+ models for the Gasper consensus protocol
 
 - Using honestSlot to synchronize local time of all validators
 
-- Safety property is verified with 581 seconds in a MacBookPro M1 Pro (MacOS 13.01, Memory 16GB).
+- On a MacBookPro M1 Pro (MacOS 13.01, Memory 16GB):
+
+Safety property is verified with 9 minutes 41 seconds (3 honest validators + 1 byzantine validator, 3 epochs each with 1 slot),
+and ran out of memory after 5 minutes 16 seconds (3 honest validators + 1 byzantine validator, 4 epochs each with 2 slots).
 
 ### Usage
 
@@ -30,4 +33,3 @@ TLA+ models for the Gasper consensus protocol
 
   apalache-mc check --inv=FinalitySafety Test_Gasper_string_4_1.tla
   
-  (for 3 honest validators + 1 byzantine validator, 3 epochs each has 1 slot)
