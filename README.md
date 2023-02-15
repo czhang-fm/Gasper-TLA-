@@ -10,6 +10,8 @@ TLA+ models for the Gasper consensus protocol
 
 - Enforcing a limit on the number of byzantine Attestations as 2 votes per epoch
 
+- I have aborted the checking for the second model after 1 day 2 hours 49 minutes in a MacBookPro M1 Pro (MacOS 13.01, Memory 16GB).
+
 ### Usage
 
 - Install the most recent versioned apalache (currently v0.30.1) from https://github.com/informalsystems/apalache/releases
