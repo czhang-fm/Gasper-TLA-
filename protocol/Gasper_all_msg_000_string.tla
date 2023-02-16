@@ -91,7 +91,7 @@ WellFormedFFG(votes) ==
 \* Each honest validator does not cast slashable/surrounding votes (stronger than the last version)
 \* @type: (Set({id: Str, slot: Int, src: Int, dst: Int})) => Bool;
 WellFormedHonestFFG(votes) ==
-    \A m1, m2 \in votes: m1.id /= m2.id \/ (
+    \A m1, m2 \in votes: m1 = m2 \/ m1.id /= m2.id \/ (
         /\ SlotInEpoch(m1.slot) /= SlotInEpoch(m2.slot)
         /\ (SlotInEpoch(m1.src) >= SlotInEpoch(m2.src) \/ SlotInEpoch(m1.slot) < SlotInEpoch(m2.slot))
     )
@@ -166,11 +166,17 @@ SlotProceed ==
 
 \* In the current slot, honest validator v collects attestations and update block views
 ValidatorAction(v) == 
+    /\ currentSlot < MaxSlot
     /\ honestSlot[v] = currentSlot
     /\ honestSlot' = [honestSlot EXCEPT ![v] = honestSlot[v] + 1]
     /\ UpdateView(v) 
     /\ UpdateJustified(v)
     /\ UNCHANGED <<currentSlot, honestVotes, byzantineVotes, ffgVotes>>
+
+LiveLock ==
+    /\ currentSlot = MaxSlot
+    /\ currentSlot' = currentSlot
+    /\ UNCHANGED vars
 
 Next == 
     \/ SlotProceed
