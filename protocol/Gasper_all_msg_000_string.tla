@@ -181,6 +181,7 @@ LiveLock ==
 Next == 
     \/ SlotProceed
     \/ \E v \in HValidators: ValidatorAction(v)
+    \/ LiveLock
 
 FinalitySafety ==
     \A v1, v2 \in HValidators:
