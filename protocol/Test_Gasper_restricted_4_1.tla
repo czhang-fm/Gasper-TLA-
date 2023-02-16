@@ -19,12 +19,12 @@ VARIABLES
     \* @type: Str -> Int;
     honestSlot \* a function mapping an honest validator to its local slot --- used for synchronization purpose
 
-INSTANCE Gasper_all_msg_000_string WITH 
+INSTANCE Gasper_all_msg_000_restricted WITH 
     Honest <- 3,
     Byzantine <- 1,
     HValidators <- {"v1", "v2", "v3"},
     BValidators <- {"b1"},
-    NumEpoch <- 3,
+    NumEpoch <- 2,
     SlotPerEpoch <- 1
 
 
