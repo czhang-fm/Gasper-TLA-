@@ -23,13 +23,22 @@ TLA+ models for the Gasper consensus protocol
 Safety property is verified with 9 minutes 41 seconds (3 honest validators + 1 byzantine validator, 3 epochs each with 1 slot),
 and ran out of memory after 5 minutes 16 seconds (3 honest validators + 1 byzantine validator, 4 epochs each with 2 slots).
 
+### The fourth model in "Gasper_all_msg_000_restricted.tla"
+
+- Added more restrictions on honest validators behavior, so that each has to vote exactly once in each epoch
+- Added a simple liveness condition (which can be shown as false)
+
 ### Usage
 
 - Install the most recent versioned apalache (currently v0.30.1) from https://github.com/informalsystems/apalache/releases
+- Alternatively, a docker option is available for apalache, following from https://apalache.informal.systems/docs/apalache/installation/docker.html
+(however I haven't personally tested this option in any system)
 
 - Install Java 11 jdk (I used https://www.oracle.com/au/java/technologies/javase/jdk11-archive-downloads.html)
 
 - Under the folder "protocol", type:
 
-  apalache-mc check --inv=FinalitySafety Test_Gasper_string_4_1.tla
+  apalache-mc check --inv=FinalitySafety Test_Gasper_string_4_1.tla  (showing safety, 3 epochs each with 1 slot)
+  
+  apalache-mc check --inv=Liveness Test_Gasper_restricted_4_1.tla  (producing a counterexample for livness, 2 epochs each with 1 slot)
   
