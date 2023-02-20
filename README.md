@@ -28,6 +28,11 @@ and ran out of memory after 5 minutes 16 seconds (3 honest validators + 1 byzant
 - Added more restrictions on honest validators behavior, so that each has to vote exactly once in each epoch
 - Added a simple liveness condition (which can be shown as false)
 
+### The fifth model in "Gasper_all_msg_001_scheduled.tla"
+
+- The honest validators are supposed to release votes gradually, at the end of each epoch
+- This adds more complexity to the model at it ran out of memory for 3 epochs with 3+1 validators (MacOS 13.01, Memory 16GB)
+
 ### Usage
 
 - Install the most recent versioned apalache (currently v0.30.1) from https://github.com/informalsystems/apalache/releases
