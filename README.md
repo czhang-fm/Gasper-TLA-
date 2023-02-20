@@ -33,6 +33,10 @@ and ran out of memory after 5 minutes 16 seconds (3 honest validators + 1 byzant
 - The honest validators are supposed to release votes gradually, at the end of each epoch
 - This adds more complexity to the model at it ran out of memory for 3 epochs with 3+1 validators (MacOS 13.01, Memory 16GB)
 
+### The sixth model in "Gasper_all_msg_no_honest.tla"
+
+- This model removes all honest attestations, and only tests the complexity of the model when only byzaninte attestations are present
+
 ### Usage
 
 - Install the most recent versioned apalache (currently v0.30.1) from https://github.com/informalsystems/apalache/releases
@@ -47,3 +51,8 @@ and ran out of memory after 5 minutes 16 seconds (3 honest validators + 1 byzant
   
   apalache-mc check --inv=Liveness Test_Gasper_restricted_4_1.tla  (producing a counterexample for livness, 2 epochs each with 1 slot)
   
+For the sixth model with all honest attestation removed, currently it's set up with 5 epochs each with 1 slot, for 3 honest validators + 1 byzantine validator.
+
+- Under the folder "protocol", type:
+
+  apalache-mc check --inv=FinalitySafety Test_Gasper_no_honest_4_1.tla 
