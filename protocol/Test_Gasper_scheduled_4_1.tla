@@ -2,8 +2,8 @@
 
 \* the variables declared in the Gasper protocol
 VARIABLES
-    \* @type: Set({id: Str, slot: Int, src: Int, dst: Int});
-    honestVotes,
+    \* type: Set({id: Str, slot: Int, src: Int, dst: Int});
+    \* honestVotes,
     \* @type: Set({id: Str, slot: Int, src: Int, dst: Int});
     byzantineVotes,
     \* @type: Set({id: Str, slot: Int, src: Int, dst: Int});
