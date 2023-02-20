@@ -24,7 +24,7 @@ INSTANCE Gasper_all_msg_001_scheduled WITH
     Byzantine <- 1,
     HValidators <- {"v1", "v2", "v3"},
     BValidators <- {"b1"},
-    NumEpoch <- 2,
+    NumEpoch <- 3,
     SlotPerEpoch <- 1
 
 

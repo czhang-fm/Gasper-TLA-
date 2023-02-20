@@ -76,7 +76,7 @@ VARIABLES
     \* @type: Str -> Set(Int);
     finalizedBlocks, \* a function mapping an honest validator to a set of finalized blocks
     \* @type: Str -> Int;
-    honestSlot \* a function mapping an honest validator to its local slot --- used for synchronization purpose
+    honestSlot \* a function mapping honest validators to their local slots --- used for synchronization purpose
 
 \* A helper function that maps slots to epochs
 \* @type: Int => Int;
@@ -147,6 +147,13 @@ VotesInSlot(votes, slot) ==
 UpdateView(v) ==
     receivedAttestations' = [receivedAttestations EXCEPT ![v] = receivedAttestations[v] \union VotesInSlot(ffgVotes, currentSlot)]
 
+\* Honest validator only casts vote at the last slot of an epoch, and choose the most recent justified block as the FFG source
+CastVote(v) ==
+    \E srcBlock \in Blocks: 
+    /\ srcBlock \in justifiedBlocks[v]
+    /\ \A b2 \in justifiedBlocks[v]: b2 <= srcBlock
+    /\ ffgVotes' = IF ((currentSlot % SlotPerEpoch) = 0) THEN ffgVotes \union {[id |-> v, slot |-> currentSlot, src |-> srcBlock, dst |-> (currentSlot + 1 - SlotPerEpoch)]} ELSE ffgVotes
+
 \* Define whether an block (Checkpoint) is regarded as justified by a validator from a justified src
 \* @type: (Str, Int, Int) => Bool;
 RealizedJustification(validator, b1, b2) ==
@@ -160,7 +167,7 @@ UpdateJustified(validator) ==
     /\ justifiedBlocks' = [justifiedBlocks EXCEPT ![validator] = justifiedBlocks[validator] 
         \union { b2 \in Blocks: (\E b1 \in Blocks: RealizedJustification(validator, b1, b2)) }]
     /\ finalizedBlocks' = [finalizedBlocks EXCEPT ![validator] = finalizedBlocks[validator] 
-        \union { b1 \in Blocks: (\E b2 \in Blocks: RealizedJustification(validator, b1, b2)) }]         
+        \union { b1 \in Blocks: (\E b2 \in Blocks: RealizedJustification(validator, b1, b2)) }]
  
  \* System proceeds to the next slot
 SlotProceed == 
@@ -176,7 +183,8 @@ ValidatorAction(v) ==
     /\ honestSlot' = [honestSlot EXCEPT ![v] = honestSlot[v] + 1]
     /\ UpdateView(v) 
     /\ UpdateJustified(v)
-    /\ UNCHANGED <<currentSlot, byzantineVotes, ffgVotes>>
+    /\ CastVote(v)
+    /\ UNCHANGED <<currentSlot, byzantineVotes>>
 
 LiveLock ==
     /\ currentSlot = MaxSlot
