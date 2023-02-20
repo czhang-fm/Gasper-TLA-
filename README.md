@@ -51,8 +51,6 @@ and ran out of memory after 5 minutes 16 seconds (3 honest validators + 1 byzant
   
   apalache-mc check --inv=Liveness Test_Gasper_restricted_4_1.tla  (producing a counterexample for livness, 2 epochs each with 1 slot)
   
-For the sixth model with all honest attestation removed, currently it's set up with 5 epochs each with 1 slot, for 3 honest validators + 1 byzantine validator.
-
-- Under the folder "protocol", type:
+* For the sixth model with all honest attestation removed, currently it's set up with 5 epochs each with 1 slot, for 3 honest validators + 1 byzantine validator. Test with the following instruction: under the folder "protocol", type:
 
   apalache-mc check --inv=FinalitySafety Test_Gasper_no_honest_4_1.tla 
