@@ -1,4 +1,4 @@
--------------------- MODULE Gasper_all_msg_000_string ---------------------------
+-------------------- MODULE Gasper_all_msg_001_string ---------------------------
 (*
  A TLA+ specification of a simplified Ethereum consensus. 
  The simplifications are as follows:
