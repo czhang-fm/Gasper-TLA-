@@ -31,7 +31,8 @@ and ran out of memory after 5 minutes 16 seconds (3 honest validators + 1 byzant
 ### The fifth model in "Gasper_all_msg_001_scheduled.tla"
 
 - The honest validators are supposed to release votes gradually, at the end of each epoch
-- This adds more complexity to the model at it ran out of memory for 3 epochs with 3+1 validators (MacOS 13.01, Memory 16GB)
+- This adds more complexity to the model at it ran immediately out of memory for 3 epochs with 3+1 validators (MacOS 13.01, Memory 16GB)
+- On another ubuntu system (Lenovo Extreme X1 3rd Gen Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz, 64GB RAM), the model checker has to be manually terminated after 24 hours.
 
 ### The sixth model in "Gasper_all_msg_no_honest.tla"
 
