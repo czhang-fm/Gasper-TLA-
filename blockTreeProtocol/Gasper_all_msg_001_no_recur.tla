@@ -180,9 +180,10 @@ UpdateJustified(validator) ==
         \union { b1 \in Blocks: (\E b2 \in Blocks: RealizedJustification(validator, b1, b2)) }]         
  
 \* To update honest validator's votes in epoch e
+\* In this case, the votes from the current epoch of an honest validator v may be empty, which is because v's most recent justified Checkpoint is not an ancestor of the current Checkpoint
 \* @type: (Int) => Bool;
-UpdateHonestAttestations(epoch) ==
-    LET newVotes == { m \in [id: HValidators, src: Blocks, dst: { (epoch-1)*SlotPerEpoch+1 }] : m.src = MaxBlock(justifiedBlocks[m.id])} IN
+UpdateHonestAttestations(epoch) == 
+    LET newVotes == { m \in [id: HValidators, src: Blocks, dst: { (epoch-1)*SlotPerEpoch+1 }] : m.src = MaxBlock(justifiedBlocks[m.id]) /\ ancestor(m.src, m.dst)} IN
     /\ ffgVotes' = ffgVotes \union newVotes
     /\ honestVotes' = honestVotes \union newVotes
     /\ WellFormedHonestFFG(honestVotes')
