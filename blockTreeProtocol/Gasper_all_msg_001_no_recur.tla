@@ -182,15 +182,15 @@ UpdateJustified(validator) ==
 \* To update honest validator's votes in epoch e
 \* @type: (Int) => Bool;
 UpdateHonestAttestations(e) ==
-    LET  newVotes == CHOOSE X \in SUBSET [id: HValidators, src: Blocks, dst: { s \in Slots: SlotInEpoch(s) = e }] : WellFormedHonestFFG(X \union honestVotes)
-    /\ EnforceHonestFFG(X) IN ffgVotes' = ffgVotes \union newVotes /\ honestVotes' = honestVotes \union newVotes
+    LET  newVotes == CHOOSE X \in SUBSET [id: HValidators, src: Blocks, dst: { s \in Slots: SlotInEpoch(s) = e }] : 
+    WellFormedHonestFFG(X \union honestVotes) /\ EnforceHonestFFG(X) IN (ffgVotes' = ffgVotes \union newVotes /\ honestVotes' = honestVotes \union newVotes)
 
  \* System proceeds to the next slot
 SlotProceed == 
     /\ \A v \in HValidators: honestSlot[v] > currentSlot
     /\ currentSlot < MaxSlot \* finite model
     /\ currentSlot' = currentSlot + 1 
-    /\ IF currentSlot' % SlotPerEpoch = 0 THEN UpdateHonestAttestations(SlotInEpoch(currentSlot')) ELSE ffgVotes' = ffgVotes /\ honestVotes' = honestVotes
+    /\ IF (currentSlot+1)%SlotPerEpoch = 0 THEN UpdateHonestAttestations(SlotInEpoch(currentSlot+1)) ELSE ffgVotes' = ffgVotes /\ honestVotes' = honestVotes
     /\ UNCHANGED vars
 
 \* In the current slot, honest validator v collects attestations and update block views
@@ -205,6 +205,8 @@ ValidatorAction(v) ==
 LiveLock ==
     /\ currentSlot = MaxSlot
     /\ currentSlot' = currentSlot
+    /\ ffgVotes' = ffgVotes 
+    /\ honestVotes' = honestVotes
     /\ UNCHANGED vars
 
 Next == 
