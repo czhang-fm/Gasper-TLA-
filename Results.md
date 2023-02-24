@@ -35,7 +35,10 @@ This is the first time that we can actually terminate the verification procedure
 | 6 sec (4G)  | 5 min 39 sec (4G) | out-of-mem (4G) | N/A |
 | N/A   | 5 min 30 sec (8G) | 21 min 2 sec (8G) | out-of-mem (8G) |
 
-
-
+7. The seventh model "Gasper_all_msg_001_no_recur.tla" under blockTree made the following changes.
+- Added a blockTree relation representing the blocks proposed by some validator (proposers)
+- A new "parent" relation between blocks (currently not a recursive operator), which makes sure that an honest validator's vote must have its src and dst in the "parent" relation.
+- If an honest validator v cast an FFG attestation (v, src, dst), then src must be the most recent justified block (Checkpoint)
+- After setting EpochNum = 2 (SlotPerEpoch = 1), the model check process spent 1 min 51 sec on the MacBookPro (max JVM memory 4G) to terminate, and it produced a counterexample against "Liveness" invariant which contains a block tree of three nodes {GENESIS, 1, 2} such that blockTree[1] = GENESIS and blockTree[2] = GENESIS, which makes the run impossible to finalize any block within 2 epochs.
  
 
