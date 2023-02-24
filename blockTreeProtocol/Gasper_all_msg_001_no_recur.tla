@@ -94,7 +94,7 @@ ancestor(b1, b2) ==
     \/ \E b3, b4 \in Blocks: b3 = blockTree[b2] /\ b4 = blockTree[b3] /\ b1 = blockTree[b4] \* sufficient for up to 3 slots
 
 \* pick up the maximal element from a set of blocks, return -1 if empty set
-\* @type: Set(Int) -> Int
+\* @ *type: Set(Int) -> Int;
 MaxBlock(blocks) == LET Max(p,q) == IF p > q THEN p ELSE q IN ApaFoldSet(Max, -1, blocks)
 
 \* We let a FFG vote of each validator is of well formed, i.e., src < dst = slot
